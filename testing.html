@@ -1,0 +1,71 @@
+<head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <!--<link href="testing.css" rel="stylesheet" type="text/css">
+     <script type="text/javascript" src="d3.min.js"></script> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .chart div {
+            font: 10px sans-serif;
+            background-color: steelblue;
+            text-align: right;
+            padding: 3px;
+            margin: 1px;
+            color: white;
+        }
+
+        .charttwo div {
+            font: 12px serif;
+            background-color: pink;
+            text-align: left;
+            padding: 3px;
+            margin: 1px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <p>hello</p>
+    <div class="chart"></div>
+    <img src="David-Brent.jpg" class="TERLS">
+    <div class="charttwo"></div>
+
+    <script>
+        var array = ["ham", "eggs", "beans", "ham", "beans", "potatoes"];
+        var arrayTwo = [45, 12, 33, 51, 100, 0, 14]
+        console.log("js file")
+
+        d3.select('body')
+            .selectAll('p')
+            .data(array)
+            .enter()
+            .append('p')
+            .text(function (eachDataNode) {
+                return eachDataNode;
+            })
+            .exit()
+
+        d3.select('body')
+        .selectAll('p')
+        .append('p')
+        .text("\testtext.txt")
+
+        d3.selectAll("p").style("color", "red")
+
+        //d3.select(".TERLS").style("width", /*function*/ ).enter().append("p").text("testtext.txt")
+
+        d3.select(".charttwo")
+            .selectAll("div")
+            .data(array)
+            .enter()
+            .append("div")
+            .style("width", function (d) {
+                return d + "px";
+            })
+            .text(function (d) {
+                return d;
+            });
+    </script>
+
+</body>

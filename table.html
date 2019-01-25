@@ -1,0 +1,47 @@
+<head>
+    <meta charset="utf-8">
+    <title>line graph</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .tableOne tr {
+            color: red;
+            border: 1px solid black;
+            padding: 3px
+        }
+
+        table {
+            border: 3px solid black
+        }
+    </style>
+</head>
+
+<body>
+
+    <table class="tableOne">
+        <thead>
+            <tr>
+                <th>Item</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        var dinner = ["ham", "eggs", "beans", "ham", "green eggs", "cheese", "cheese", "cheese"]
+
+        var tr = d3.select(".tableOne tbody")
+            .selectAll("tr")
+            .data(dinner)
+            .enter().append("tr");
+
+        var td = tr.selectAll("td")
+            .data(function (d) {
+                return d;
+            })
+            .enter().append("td")
+            .text(function (d) {
+                return d;
+            });
+
+    </script>
+</body>

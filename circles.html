@@ -1,0 +1,25 @@
+<head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        circle {
+            fill: green;
+        }
+    </style>
+
+</head>
+
+<body>
+    <p>hello</p>
+    <svg width="200" height="200">
+        <circle cx="100" cy="100" r="50"></circle>
+    </svg>
+    <script>
+        console.log("we're in the script")
+        var array = ["eggs", "ham", "eggs", "bread"]
+        d3.selectAll("circle")
+            .data(array)
+            .style("fill", "red")
+    </script>
+</body>

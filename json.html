@@ -1,0 +1,404 @@
+<head>
+    <meta charset="utf-8">
+    <title>json</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .svg-container {
+            background-color: #FFC988;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <svg></svg>
+    <script>
+        var nationalTrust = [
+            {
+                "openingTimeStatus": "Closed today",
+                "cmsRegion": "RegionSouthWest",
+                "imagePath": "/images/1431821400921-lindaadamsfrostymorningalaronde.jpg",
+                "id": "1",
+                "title": "A la Ronde",
+                "subTitle": "Exmouth, Devon",
+                "description": "Quirky 18th-century, 16 sided house with fascinating interior decoration and collections",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431821400921-lindaadamsfrostymorningalaronde.jpg",
+                "imageDescription": "A frosty morning at A la Ronde",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/a-la-ronde",
+                "location": {
+                    "latitude": 50.641718,
+                    "longitude": -3.408798
+                },
+                "activityTagsAsCsv": "Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionWales",
+                "imagePath": "/images/1431737802588-aberc-ext-closeup-web.jpg",
+                "id": "2",
+                "title": "Aberconwy House",
+                "subTitle": "Conwy",
+                "description": "14th-century merchant's house",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431737802588-aberc-ext-closeup-web.jpg",
+                "imageDescription": "Aberconwy House, Conwy",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/aberconwy-house",
+                "location": {
+                    "latitude": 53.282101,
+                    "longitude": -3.82732
+                },
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Closed today",
+                "cmsRegion": "RegionWales",
+                "imagePath": "/images/1431766198209-xmas-at-atw-2016.jpg",
+                "id": "3",
+                "title": "Aberdulais Tin Works and Waterfall",
+                "subTitle": "Neath, Neath Port Talbot",
+                "description": "An Industrial Revolution, powered by water since 1584!",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431766198209-xmas-at-atw-2016.jpg",
+                "imageDescription": "Aberdulais Victorian Christmas with Mrs Claus",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/aberdulais-tin-works-and-waterfall",
+                "location": {
+                    "latitude": 51.680698,
+                    "longitude": -3.77791
+                },
+                "activityTagsAsCsv": "Dog walking, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Closed today",
+                "cmsRegion": "RegionNorthWest",
+                "imagePath": "/images/1431780494354-img1281-acorn-bank-silent-spaces-2.jpg",
+                "id": "5",
+                "title": "Acorn Bank",
+                "subTitle": "near Penrith, Cumbria",
+                "description": "Delightful garden renowned for its herbs and fruit orchards",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431780494354-img1281-acorn-bank-silent-spaces-2.jpg",
+                "imageDescription": "Enjoy silent spaces at Acorn Bank",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/acorn-bank",
+                "location": {
+                    "latitude": 54.646301,
+                    "longitude": -2.59228
+                },
+                "activityTagsAsCsv": "Dog walking, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Closed today",
+                "cmsRegion": "RegionLondonSouthEast",
+                "imagePath": "/images/1431767407720-website-photo-dec-16.jpg",
+                "id": "6",
+                "title": "Alfriston Clergy House",
+                "subTitle": "Polegate, East Sussex",
+                "description": "Medieval thatched Wealden hall-house and picturesque garden",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431767407720-website-photo-dec-16.jpg",
+                "imageDescription": "Alfriston Clergy House East Sussex view of house and vegetable garden in winter",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/alfriston-clergy-house",
+                "location": {
+                    "latitude": 50.803299,
+                    "longitude": 0.16206
+                },
+                "activityTagsAsCsv": "Dog walking, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Open today",
+                "cmsRegion": "RegionYorkshireNorthEast",
+                "imagePath": "/images/1431826527064-1158522.jpg",
+                "id": "7",
+                "title": "Allen Banks and Staward Gorge",
+                "subTitle": "Hexham, Northumberland",
+                "description": "Gorge of the River Allen with ornamental and ancient woodland",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431826527064-1158522.jpg",
+                "imageDescription": "Two women with their dogs walk through a wooded path",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/allen-banks-and-staward-gorge",
+                "location": {
+                    "latitude": 54.964001,
+                    "longitude": -2.31392
+                },
+                "activityTagsAsCsv": "Dog walking, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Open today",
+                "cmsRegion": "RegionEastofEngland",
+                "imagePath": "/images/1431792900188-anglesey-web-45.jpg",
+                "id": "9",
+                "title": "Anglesey Abbey, Gardens and Lode Mill",
+                "subTitle": "Cambridge, Cambridgeshire",
+                "description": "Jacobean-style house with gardens and a working watermill",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431792900188-anglesey-web-45.jpg",
+                "imageDescription": "Frosty scene at Anglesey Abbey",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/anglesey-abbey-gardens-and-lode-mill",
+                "location": {
+                    "latitude": 52.235915,
+                    "longitude": 0.2448
+                },
+                "activityTagsAsCsv": "Cycling, Geocaching, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Closed today",
+                "cmsRegion": "RegionSouthWest",
+                "imagePath": "/images/1431792080775-cdi3789a.jpg",
+                "id": "10",
+                "title": "Antony",
+                "subTitle": "Torpoint, Cornwall",
+                "description": "A home with a heartbeat, still lived in today by the Carew Pole family.",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431792080775-cdi3789a.jpg",
+                "imageDescription": "Antony house on a winter's day glimpsed through the branches of a black walnut tree",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/antony",
+                "location": {
+                    "latitude": 50.3848,
+                    "longitude": -4.22563
+                },
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionNorthernIreland",
+                "imagePath": "/images/1431737632002-ardresshouse1400x788.jpg",
+                "id": "11",
+                "title": "Ardress House",
+                "subTitle": "Portadown, County Armagh",
+                "description": "17th-century house with elegant 18th-century decoration and a traditional farmyard",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431737632002-ardresshouse1400x788.jpg",
+                "imageDescription": "Ardress house ",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/ardress-house",
+                "location": {
+                    "latitude": 54.442902,
+                    "longitude": -6.59239
+                },
+                "activityTagsAsCsv": "Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionSouthWest",
+                "imagePath": "/images/1431819763991-headerimagearlingtoncourtandthenationaltrustcarriagemuseum1238678.jpg",
+                "id": "12",
+                "title": "Arlington Court and the National Trust Carriage Museum",
+                "subTitle": "near Barnstaple, Devon",
+                "description": "Intriguing Regency house and impressive collection of horse-drawn vehicles, set in a picturesque garden",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431819763991-headerimagearlingtoncourtandthenationaltrustcarriagemuseum1238678.jpg",
+                "imageDescription": "Visitors sat outside the south front at Arlington Court",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/arlington-court-and-the-national-trust-carriage-museum",
+                "location": {
+                    "latitude": 51.145699,
+                    "longitude": -3.98588
+                },
+                "activityTagsAsCsv": "Dog walking, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionNorthernIreland",
+                "imagePath": "/images/1431823643644-argoryweb.jpg",
+                "id": "13",
+                "title": "The Argory",
+                "subTitle": "Dungannon, County Armagh",
+                "description": "Atmospheric Irish gentry house and wooded riverside estate",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431823643644-argoryweb.jpg",
+                "imageDescription": "The Argory in Winter",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/the-argory",
+                "location": {
+                    "latitude": 54.464401,
+                    "longitude": -6.66035
+                },
+                "activityTagsAsCsv": "Dog walking, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Closed today",
+                "cmsRegion": "RegionLondonSouthEast",
+                "imagePath": "/images/1431736739738-82256-web-cropped.jpg",
+                "id": "14",
+                "title": "Ascott",
+                "subTitle": "near Leighton Buzzard, Buckinghamshire",
+                "description": "Half-timbered house originating from 1606, transformed by the Rothschilds in the late 19th century, containing superb collections.",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431736739738-82256-web-cropped.jpg",
+                "imageDescription": "A sundial of box hedge topiary in the gardens at Ascott",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/ascott",
+                "location": {
+                    "latitude": 51.895802,
+                    "longitude": -0.70058
+                },
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionLondonSouthEast",
+                "imagePath": "/images/1431760368371-ashdown-autumn-mist-credit-andrew-cornick-resized.jpg",
+                "id": "15",
+                "title": "Ashdown House",
+                "subTitle": "Newbury, Oxfordshire",
+                "description": "Unusual Dutch-style house on the Berkshire Downs",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431760368371-ashdown-autumn-mist-credit-andrew-cornick-resized.jpg",
+                "imageDescription": "Ashdown House in Berkshire ",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/ashdown-house",
+                "location": {
+                    "latitude": 51.535999,
+                    "longitude": -1.59116
+                },
+                "activityTagsAsCsv": "Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Open today",
+                "cmsRegion": "RegionSouthWest",
+                "imagePath": "/images/1431813824740-ashleworthtithebarninspring1400x788.jpg",
+                "id": "16",
+                "title": "Ashleworth Tithe Barn",
+                "subTitle": "Ashleworth, Gloucestershire",
+                "description": "15th-century tithe barn",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431813824740-ashleworthtithebarninspring1400x788.jpg",
+                "imageDescription": "The barn was built by the canons of St. Augustine's Bristol",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/ashleworth-tithe-barn",
+                "location": {
+                    "latitude": 51.924198,
+                    "longitude": -2.26572
+                },
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionLondonSouthEast",
+                "imagePath": "/images/1431767599801-winter-walks.jpg",
+                "id": "17",
+                "title": "Ashridge Estate",
+                "subTitle": "Near Berkhamsted, Hertfordshire",
+                "description": "Ancient trees, rolling chalk downlands and lush meadows in an area of outstanding natural beauty",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431767599801-winter-walks.jpg",
+                "imageDescription": "Winter walks at Ashridge Herts",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/ashridge-estate",
+                "location": {
+                    "latitude": 51.805599,
+                    "longitude": -0.58542
+                },
+                "activityTagsAsCsv": "Cycling, Dog walking, Horse riding, Orienteering, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionMidlands",
+                "imagePath": "/images/1431740392710-attinghamparkwinterviewofmansionjanetaylor.jpg",
+                "id": "18",
+                "title": "Attingham Park",
+                "subTitle": "Shrewsbury, Shropshire",
+                "description": "An 18th-century mansion and estate shaped by a story of love and neglect",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431740392710-attinghamparkwinterviewofmansionjanetaylor.jpg",
+                "imageDescription": "A side view of the Mansion in the winter sunshine",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/attingham-park",
+                "location": {
+                    "latitude": 52.685842,
+                    "longitude": -2.671193
+                },
+                "activityTagsAsCsv": "Dog walking, Running, Walking",
+                "displayable": true
+            },
+            {
+                "openingTimeStatus": "Partially open today",
+                "cmsRegion": "RegionSouthWest",
+                "imagePath": "/images/1431769184105-stonecircleinwinterntabbygeorge.jpg",
+                "id": "19",
+                "title": "Avebury",
+                "subTitle": "near Marlborough, Wiltshire",
+                "description": "Ancient stone circle, museum and manor house in the heart of the Avebury World Heritage Site",
+                "imageUrl": "https://nt.global.ssl.fastly.net/images/1431769184105-stonecircleinwinterntabbygeorge.jpg",
+                "imageDescription": "Stone circles in winter",
+                "alternativeImages": [],
+                "websiteUrl": "https://www.nationaltrust.org.uk/avebury",
+                "location": {
+                    "latitude": 51.427502,
+                    "longitude": -1.85611
+                },
+                "activityTagsAsCsv": "Dog walking, Walking",
+                "displayable": true
+            },
+        ];
+
+        var svg = d3.select("svg")
+            .attr("width", 2000)
+            .attr("height", 2000)
+            .attr("class", "svg-container");
+
+        var bubbles = svg
+            .selectAll("circle")
+            .data(nationalTrust)
+            .enter()
+            .append("circle")
+            .attr("cx", (d, i) => {
+                return (nationalTrust[i].location.longitude + 8) * 50 
+            })
+            .attr("cy", (d, i) => {
+                return nationalTrust[i].location.latitude* i * 2 + 100
+            })
+            .attr("r", 50)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("fill", (d, i) => {
+                if (nationalTrust[i].openingTimeStatus === "Partially open today") {
+                    return "yellow"
+                } else if (nationalTrust[i].openingTimeStatus === "Open today") {
+                    return "green"
+                } else if (nationalTrust[i].openingTimeStatus === "Closed today") {
+                    return "red"
+                } else {
+                    return "grey"
+                }
+            });
+
+        var labels = svg
+            .selectAll("text")
+            .data(nationalTrust)
+            .enter()
+            .append("text")
+            .attr("x", (d, i) => {
+                return (nationalTrust[i].location.longitude + 8) * 50 
+            })
+            .attr("y", (d, i) => {
+                return nationalTrust[i].location.latitude* i * 2 + 100
+            })
+            .attr("text-anchor", "middle")
+            .text((d, i) => {
+                return nationalTrust[i].title
+            });
+
+        var thumbnails = svg
+            .selectAll("image")
+            .data(nationalTrust)
+            .enter()
+            .append('image')
+            .attr('href', (d, i) => {
+                return nationalTrust[i].imageUrl
+            })
+            .attr("x", (d, i) => {
+                return (nationalTrust[i].location.longitude + 8) * 50 
+            })
+            .attr("y", (d, i) => {
+                return nationalTrust[i].location.latitude* i * 2 + 100
+            })
+            .attr("width", 50)
+            .attr("height", 50)
+            .attr("image-anchor", "middle");
+    </script>
+
+</body>

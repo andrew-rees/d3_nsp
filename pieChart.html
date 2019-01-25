@@ -1,0 +1,62 @@
+<head>
+    <meta charset="utf-8">
+    <title>json</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .svg-container {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <svg>
+        <path d="M150 0 L75 200 L225 200 Z" />
+    </svg>
+    <script>
+        var svgWidth = 300;
+        var svgHeight = 300;
+
+
+        function randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min
+        }
+
+        var arrayOfAges = [];
+        for (i = 0; i < 500; i++) {
+            arrayOfAges.push(randomNumber(0, 100))
+        };
+        //d3.select("body").append("p").text(array)
+
+        var data = [12, 45, 67, 16, 18]
+
+        var svg = d3.select("svg"),
+            width = svgWidth,
+            height = svgHeight,
+            radius = Math.min(width, height) / 2,
+            g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        svg.attr("class", "svg-container")
+
+        var color = d3.scaleOrdinal(['#4daf4a', '#377eb8', '#ff7f00', '#984ea3', '#e41a1c']);
+
+        var pie = d3.pie()
+        //console.log(pie(arrayofAges))
+
+        var arc = d3.arc().innerRadius(0).outerRadius(radius)
+
+        var arcs = g.selectAll("arc")
+            .data(pie(data))
+            .enter()
+            .append("g")
+            .attr("class", "arc")
+
+        arcs.append("path")
+            .attr("fill", function (d, i) {
+                return color(i);
+            })
+            .attr("d", arc);
+    </script>
+
+</body>
