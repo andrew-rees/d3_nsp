@@ -1,0 +1,386 @@
+<head>
+    <meta charset="utf-8">
+    <title>json</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .svg-container {
+            background-color: #FFC988;
+            border: 1px solid black;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+    </style>
+</head>
+
+<body>
+    <svg></svg>
+    <script>
+        //want to build a double-sided bar lineChart - start out single - dates and adv/main-concern/risk
+        //want it to be drillable - so when click on shape, it hyperlinks to a new lineChart with more specific measures
+        //want it to link to a record in CRM - click on Acct takes you there, click on person, takes you there, click on an individual A-, takes you there
+
+        var advices = [{
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-1",
+                "Created_On": "01/01/2019",
+                "Main_Concern": "Physical Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "With implement",
+                    "Sub-concern-2": "Siblings at risk"
+                },
+                "Risk": "High",
+                "Referral": "Y",
+                "Type_of_Referral": "with consent",
+                "Person": "None",
+                "Contact_Method": "Chat"
+            },
+            {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-2",
+                "Created_On": "01/01/2019",
+                "Main_Concern": "Physical Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "With implement",
+                    "Sub-concern-2": "Siblings at risk"
+                },
+                "Risk": "Low",
+                "Referral": "N",
+                "Type_of_Referral": "N/a",
+                "Person": "None",
+                "Contact_Method": "Chat"
+            },
+            {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-345",
+                "Created_On": "01/01/2019",
+                "Main_Concern": "Sexual Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Parent",
+                    "Sub-concern-2": "Non-contact"
+                },
+                "Risk": "Medium",
+                "Referral": "N",
+                "Type_of_Referral": "N/a",
+                "Person": "N/a",
+                "Contact_Method": "Chat"
+            },
+            {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-347",
+                "Created_On": "01/01/2019",
+                "Main_Concern": "Sexual Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Parent",
+                    "Sub-concern-2": "Non-contact"
+                },
+                "Risk": "High",
+                "Referral": "Y",
+                "Type_of_Referral": "CEOP",
+                "Person": "Barry Barryson",
+                "Contact_Method": "PIB"
+            }, {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-667",
+                "Created_On": "02/01/2019",
+                "Main_Concern": "Bullying - Online",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Peers",
+                    "Sub-concern-2": "Non-contact"
+                },
+                "Risk": "Low",
+                "Referral": "N",
+                "Type_of_Referral": "N/a",
+                "Person": "N/a",
+                "Contact_Method": "Voice"
+            }, {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-1095",
+                "Created_On": "09/01/2019",
+                "Main_Concern": "Sexual Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Parent",
+                    "Sub-concern-2": "Non-contact"
+                },
+                "Risk": "Medium",
+                "Referral": "N",
+                "Type_of_Referral": "N/a",
+                "Person": "N/a",
+                "Contact_Method": "Chat"
+            }, {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-1245",
+                "Created_On": "09/01/2019",
+                "Main_Concern": "Sexual Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Position of Trust",
+                    "Sub-concern-2": "Contact"
+                },
+                "Risk": "High",
+                "Referral": "Y",
+                "Type_of_Referral": "Breach",
+                "Person": "Barry Barryson",
+                "Contact_Method": "Voice"
+            }, {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-1789",
+                "Created_On": "10/01/2019",
+                "Main_Concern": "Emotional Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Swearing",
+                    "Sub-concern-2": "Threats of Harm"
+                },
+                "Risk": "Medium",
+                "Referral": "N",
+                "Type_of_Referral": "N/a",
+                "Person": "N/a",
+                "Contact_Method": "Manual"
+            }, {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-1791",
+                "Created_On": "10/01/2019",
+                "Main_Concern": "Sexual Abuse",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Parent",
+                    "Sub-concern-2": "Non-contact"
+                },
+                "Risk": "High",
+                "Referral": "Y",
+                "Type_of_Referral": "With Consent",
+                "Person": "Bobby Robson",
+                "Contact_Method": "Chat"
+            }, {
+                "Childline_Account": "Max_Headroom",
+                "py3_name": "A-2012",
+                "Created_On": "11/01/2019",
+                "Main_Concern": "Neglect",
+                "Sub-concerns": {
+                    "Sub-concern-1": "Unemployment",
+                    "Sub-concern-2": "Parental Alcohol misuse"
+                },
+                "Risk": "Low",
+                "Referral": "N",
+                "Type_of_Referral": "N/a",
+                "Person": "N/a",
+                "Contact_Method": "PIB"
+            }
+        ];
+
+        var childlineAccount = [{
+            "py3_name": "Max_Headroom",
+            "id": "C-445678",
+            "Created_On": "01/01/2019",
+        }]
+
+        var person = [{
+            "py3_name": "Barry Barryson",
+            "py3_personId": "P-66788",
+            "Created_On": "01/01/2019",
+            "Address Name": null,
+            "Address Line 1": "36, Thorpe Street",
+            "Address Line 2": "null",
+            "Town/City": "Manchester",
+            "Postcode": "M16 9PR",
+        }, {
+            "py3_name": "Bobby Robson",
+            "py3_personId": "P-16235236723",
+            "Created_On": "10/01/2019",
+            "Address Name": null,
+            "Address Line 1": "36, Thorpe Street",
+            "Address Line 2": "null",
+            "Town/City": "MaAnchester",
+            "Postcode": "M16 9PR",
+        }]
+
+        //TURN ADVICES TO referralsAndDates
+
+        // Javascript date parsing assumings MM/DD/YYYY formats, so we have to make our own parser
+        // Easier with Moment.js but respecting wish to avoid libraries
+        function toDate(dateString) {
+            const dateParts = dateString.split("/");
+            // Months are zero indexed so we need to subtract 1
+            // Warning this will throw an exception if insufficently many '/'s were found
+            return new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+        };
+
+        // // WARNING this function assumes the input is sorted by date
+        // function groupRisksByDate(sortedEntries) {
+        //     // We do this first check since the algorithm that will follow breaks in the case of an empty input
+        //     if (sortedEntries.length === 0) {
+        //         return [];
+        //     };
+
+        //     let output = [];
+        //     let currentGroup = {
+        //         Created_On: sortedEntries[0].Created_On,
+        //         High: 0,
+        //         Medium: 0,
+        //         Low: 0
+        //     }; // This will be an outputgroup
+        //     for (let i = 0; i < sortedEntries.length; i++) {
+        //         let currentItem = sortedEntries[i];
+        //         if (currentGroup.Created_On === currentItem.Created_On) { // if the current group matches the current item...
+        //             currentGroup[currentItem.Risk]++; // then it's risk level is incremented on the currentGroup
+        //         } else {
+        //             output.push(currentGroup); // if not, then the current group is finished and can be pushed to the output
+        //             currentGroup = { // meanwhile the current item starts a new group
+        //                 Created_On: currentItem.Created_On,
+        //                 High: +(currentItem.Risk === 'High'), // This is a dumb trick to convert a boolean to 0 or 1 (false -> 0, true -> 1)
+        //                 Medium: +(currentItem.Risk === 'Medium'),
+        //                 Low: +(currentItem.Risk === 'Low')
+        //             };
+        //         };
+        //     };
+        //     output.push(currentGroup); // There'll be a last group that wasn't pushed already
+        //     return output;
+        // };
+
+        // advices.sort((a, b) => {
+        //     return toDate(a.Created_On) - toDate(b.Created_On);
+        // });
+
+        // var referralsAndDates = groupRisksByDate(advices);
+
+        //TURN ADVICES TO REFERRALSANDDATES
+
+        function groupReferralsByDate(sortedEntries) {
+            // We do this first check since the algorithm that will follow breaks in the case of an empty input
+            if (sortedEntries.length === 0) {
+                return [];
+            };
+
+            let outputReferrals = [];
+            let currentReferralsGroup = {
+                Created_On: sortedEntries[0].Created_On,
+                Referrals: 0
+            }; // This will be an outputgroup
+            for (let i = 0; i < sortedEntries.length; i++) {
+                let currentItem = sortedEntries[i];
+                if (currentReferralsGroup.Created_On === currentItem.Created_On) { // if the current group matches the current item...
+                    currentReferralsGroup[currentItem.Referral]++; // then it's risk level is incremented on the currentGroup
+                } else {
+                    outputReferrals.push(currentReferralsGroup); // if not, then the current group is finished and can be pushed to the output
+                    currentReferralsGroup = { // meanwhile the current item starts a new group
+                        Created_On: currentItem.Created_On,
+                        Referrals: +(currentItem.Referral === "Y"), // This is a dumb trick to convert a boolean to 0 or 1 (false -> 0, true -> 1)
+                    };
+                };
+            };
+            outputReferrals.push(currentReferralsGroup); // There'll be a last group that wasn't pushed already
+            return outputReferrals;
+        };
+
+        advices.sort((a, b) => {
+            return toDate(a.Created_On) - toDate(b.Created_On);
+        });
+
+        var referralsAndDates = groupReferralsByDate(advices);
+
+
+        ////DISPLAY FUNCTIONS//////
+
+        //first lineChart
+
+        const margin = 60;
+        const width = 1000 - 2 * margin;
+        const height = 600 - 2 * margin;
+
+        var svg = d3.select("svg")
+            .attr("class", "svg-container");
+
+        const lineChart = svg.append('g')
+            .attr('transform', `translate(${margin}, ${margin})`); // will this work in Chrome - think so?
+
+        const yScale = d3.scaleLinear()
+            .range([height, 0])
+            .domain([0, 10]);
+
+        lineChart.append('g')
+            .call(d3.axisLeft(yScale));
+
+        const xScale = d3.scaleBand()
+            .range([0, width])
+            .domain(referralsAndDates.map((advice) => advice.Created_On))
+            .padding(0.2);
+
+        lineChart.append('g')
+            .attr('transform', `translate(0, ${height})`)
+            .call(d3.axisBottom(xScale));
+
+        var line = d3.line()
+            .attr("x", (advice) => {
+                xScale(advice.Created_On)
+            })
+            .attr("y", (advice) => {
+                yLineScale(advice.Referrals)
+            })
+
+        //Line lineChart - referrals per day
+
+        lineChart.selectAll()
+            .data(referralsAndDates)
+            .enter()
+            .append("path")
+            //.datum(referralsAndDates) // 10. Binds data to the line 
+            .attr("class", "line") // Assign a class for styling 
+            .attr("d", line); // 11. Calls the line generator 
+
+        lineChart.selectAll(".dot")
+            .data(referralsAndDates)
+            .enter()
+            .append("circle") // Uses the enter().append() method
+            .attr("class", "dot") // Assign a class for styling
+            .attr("cx", function (d, i) {
+                return xScale(i)
+            })
+            .attr("cy", function (d) {
+                return yScale(d.y)
+            })
+            .attr("r", 5)
+            .on("mouseover", function (a, b, c) {
+                console.log(a)
+                this.attr('class', 'focus')
+            })
+
+
+        //Fill SVG with First Chart
+
+
+        // chart.selectAll()
+        //     .data(referralsAndDates)
+        //     .enter()
+        //     .append("a")
+        //     .attr("href", "https://www.facebook.com")
+        //     .attr("target", "_blank")
+        //     .append("rect")
+        //     .attr('x', (advice) => xScale(advice.Created_On))
+        //     .attr('y', (advice) => yScale(advice.Low))
+        //     .attr('height', (advice) => height - yScale(advice.Low))
+        //     .attr('width', xScale.bandwidth())
+        //     .attr('fill', "yellow")
+        //     .attr("id", "Low");
+
+        // chart.selectAll("text")
+        //     .select("#Low")
+        //     .data(referralsAndDates)
+        //     .enter()
+        //     .append("text")
+        //     .attr("x", (advice) => xScale(advice.Created_On))
+        //     .attr("y", (advice) => yScale(advice.Low / 2))
+        //     .attr("fill", "black")
+        //     .text((d, i) => {
+        //         if (d.Low === 0) {
+        //             return;
+        //         } else {
+        //             return "Low: " + d.Low;
+        //         };
+        //     });
+    </script>
+
+</body>
